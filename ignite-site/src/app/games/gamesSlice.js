@@ -1,18 +1,23 @@
-require("dotenv").config();
+import { createSlice } from "@reduxjs/toolkit";
 
-const base_url = `https://api.rawg.io/api/`;
-
-const getDate = () => {
-  return new Date().toISOString().slice(0, 10);
+const initialState = {
+  popularGames: [],
+  newGames: [],
+  upcoming: [],
+  searchedGame: [],
+  test: 5,
 };
 
-const lastYear = Date().getFullYear() - 1;
-const currentYear = new Date().getFullYear();
-const nextYear = new Date().getFullYear() + 1;
-const currentDate = getDate();
-console.log(lastYear);
-console.log(currentYear);
-console.log(nextYear);
-console.log(currentDate);
+const gamesSlice = createSlice({
+  name: "games",
+  initialState,
+  reducers: {
+    getGames: (state) => {
+      return { ...state };
+    },
+  },
+});
 
-const popular_games = `games?key=${process.env.REACT_APP_RAWG_API}&dates=${lastYear},${currentDate}&ordering=-rating&page_size=10`;
+export const { getGames } = gamesSlice.actions;
+
+export default gamesSlice.reducer;
