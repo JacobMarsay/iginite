@@ -19,7 +19,6 @@ export const GlobalStyles = styled.div`
   }
 
   body {
-    font-family: "Montserrat", sans-serif;
     width: 100%;
   }
 
@@ -39,11 +38,13 @@ export const GlobalStyles = styled.div`
   h4 {
     font-size: 1.4rem;
     color: #333;
+    font-family: "Montserrat", sans-serif;
   }
 
   p {
-    font-size: 1.4rem;
+    font-size: 1rem;
     line-height: 200%;
     color: #696969;
+    font-family: "Montserrat", sans-serif;
   }
 `;

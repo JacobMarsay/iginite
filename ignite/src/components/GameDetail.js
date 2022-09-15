@@ -7,37 +7,41 @@ import { useSelector } from "react-redux";
 import { gameDetailsUrl } from "../api";
 
 function GameDetail() {
-  const { screen, game } = useSelector((state) => state.detail);
+  const { screen, game, isLoading } = useSelector((state) => state.detail);
   return (
-    <CardShadowContainer>
-      <DetailContainer>
-        <div className="stats">
-          <div className="rating">
-            <h3>{game.name}</h3>
-            <p>Rating: {game.rating}</p>
-          </div>
-          <div className="info">
-            <h3>Platforms</h3>
-            <div className="platforms">
-              {game.platforms?.map((data) => (
-                <h3 key={data.platform.id}>{data.platform.name}</h3>
+    <>
+      {!isLoading && (
+        <CardShadowContainer>
+          <DetailContainer>
+            <StatsContainer>
+              <RatingContainer>
+                <h3>{game.name}</h3>
+                <p>Rating: {game.rating}</p>
+              </RatingContainer>
+              <InfoContainer>
+                <h3>Platforms</h3>
+                <PlatformContainer>
+                  {game.platforms?.map((data) => (
+                    <p key={data.platform.id}>{data.platform.name}</p>
+                  ))}
+                </PlatformContainer>
+              </InfoContainer>
+            </StatsContainer>
+            <MediaContainer>
+              <img src={game.background_image} alt="Game Art" />
+            </MediaContainer>
+            <DescrptionContainer>
+              <p>{game.description_raw}</p>
+            </DescrptionContainer>
+            <GalleryContainer>
+              {screen.results?.map((screen) => (
+                <img src={screen.image} key={screen.id} alt="Game Gallery" />
               ))}
-            </div>
-          </div>
-        </div>
-        <div className="media">
-          <img src={game.background_image} alt="Game Art" />
-        </div>
-        <div className="description">
-          <p>{game.description_raw}</p>
-        </div>
-        <div className="gallery">
-          {screen.results?.map((screen) => (
-            <img src={screen.image} key={screen.id} alt="Game Gallery" />
-          ))}
-        </div>
-      </DetailContainer>
-    </CardShadowContainer>
+            </GalleryContainer>
+          </DetailContainer>
+        </CardShadowContainer>
+      )}
+    </>
   );
 }
 
@@ -63,13 +67,62 @@ const CardShadowContainer = styled(motion.div)`
 const DetailContainer = styled(motion.div)`
   width: 80%;
   border-radius: 1rem;
-  padding: 2rem 5rem;
+  padding: 2rem 2rem;
   background: white;
   position: absolute;
   left: 10%;
   color: black;
   img {
     width: 100%;
+  }
+`;
+
+const StatsContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const InfoContainer = styled(motion.div)`
+  text-align: center;
+  h3 {
+    font-size: 1rem;
+  }
+`;
+
+const PlatformContainer = styled(motion.div)`
+  display: flex;
+  justify-content: space-evenly;
+  p {
+    line-height: normal;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+  img {
+    margin-left: 3rem;
+  }
+`;
+
+const RatingContainer = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  h3,
+  p {
+    font-size: 1rem;
+  }
+`;
+
+const MediaContainer = styled(motion.div)`
+  margin: 1.5rem 0rem;
+`;
+
+const DescrptionContainer = styled(motion.div)`
+  margin-bottom: 1.5rem;
+`;
+
+const GalleryContainer = styled(motion.div)`
+  img {
+    padding: 0.5rem 0rem;
   }
 `;
 
