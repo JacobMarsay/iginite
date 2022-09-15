@@ -47,4 +47,11 @@ export const GlobalStyles = styled.div`
     color: #696969;
     font-family: "Montserrat", sans-serif;
   }
+  a {
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+  }
 `;

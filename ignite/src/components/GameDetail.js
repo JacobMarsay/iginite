@@ -1,17 +1,32 @@
 import React from "react";
 
+// IMPORT STYLES AND ANIMATIONS
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
 import { useSelector } from "react-redux";
 import { gameDetailsUrl } from "../api";
 
+// IMPORT LOCATION
+import { useNavigate } from "react-router-dom";
+
 function GameDetail() {
+  const navigate = useNavigate();
+  // HANDLERS
+  const exitDetailHandler = (e) => {
+    const element = e.target;
+    console.log(element);
+
+    if (element.classList.contains("shadow")) {
+      document.body.style.overflow = "auto";
+      navigate("/");
+    }
+  };
   const { screen, game, isLoading } = useSelector((state) => state.detail);
   return (
     <>
       {!isLoading && (
-        <CardShadowContainer>
+        <CardShadowContainer className="shadow" onClick={exitDetailHandler}>
           <DetailContainer>
             <StatsContainer>
               <RatingContainer>
